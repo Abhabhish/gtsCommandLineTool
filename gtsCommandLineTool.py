@@ -7,9 +7,6 @@ def asking_query():
     if Query == 'a':
         copy()
     else:
-        print('sorry I can not understand')
+        print('sorry, I can not understand')
         asking_query()
 asking_query()
-
-
-
