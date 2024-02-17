@@ -11,6 +11,4 @@ functions:
 9.DOWNLOAD
 10.PNG TO JPG
 11.HEIC TO JPG
-
-mas
-abh
+12. abhishek
