@@ -1,5 +1,3 @@
-functions:
-
 1.COPY
 2.MOVE
 3.COPY WITH SEGREGATION
