@@ -1,31 +1,45 @@
 import os
 import shutil
+import csv
 
 def move():
-    # Create an empty list to store file names
     files_to_be_moved = []
 
-    # Input file names to be moved, break if the input is empty
-    while True:
-        i = input('Enter the file names to be moved (press Enter to finish):\n>>')
-        if i == '':
-            break
-        else:
-            files_to_be_moved.append(i)
+    input_option = input("How would you like to input the file names?\n(a) Manually enter the file names\n(b) Import from CSV file\n\n>>>")
 
-    # Input source and destination directories
-    source = input('Enter Source:\n>>')
-    destination = input('Enter Destination:\n>>')
+    if (input_option == 'a'):
+        print("Enter the file names to be copied: ")
 
-    # Traverse the source directory
+        while True:
+            i = input(">> ")
+            if not i:
+                break
+            else:
+                files_to_be_moved.append(i.strip())
+
+    elif (input_option == 'b'):
+        csv_file_path = input("Enter the path to the CSV file: ")
+
+        try:
+            with open(csv_file_path, newline='', encoding='utf-8') as csv_file:
+                reader = csv.reader(csv_file)
+                files_to_be_moved = [row[0].strip() for row in reader if row]
+        except FileNotFoundError:
+            print(f"Error: CSV file not found at {csv_file_path}")
+            return
+    else:
+        print("Invalid option. Enter 'a' or 'b'.")
+        return
+
+    source = input("Enter file source:\n>>>")
+    destination = input("Enter file destination:\n>>>")
+
     for root, dirs, files in os.walk(source):
         for file in files:
-            # Check if the file is in the list of files to be moved
             if file in files_to_be_moved:
                 old_file_path = os.path.join(root, file)
                 new_file_path = os.path.join(destination, file)
-                # Check if the file does not exist in the destination
+
                 if not os.path.exists(new_file_path):
-                    # Move the file and print the message
                     shutil.move(old_file_path, new_file_path)
-                    print(f'Moved: {old_file_path} ---> {new_file_path}')
+                    print(f"Moved: {old_file_path} ----> {new_file_path}")
