@@ -2,13 +2,14 @@ from tools.copyFiles import copy
 from tools.moveFiles import move
 from tools.deleteFiles import delete
 from tools.renameFiles import rename
+from tools.resizeImages import resize_images
 
 
 def asking_query():
     
     global Operation
 
-    Query = input('What do you want to do? \n(a) Copy\n(b) Move\n(c) Copy with segregation (Yet to be implemented)\n(d) Move with segregation (Yet to be implemented)\n(e) Delete\n(f) Rename\n\n>>>')
+    Query = input('What do you want to do? \n(a) Copy\n(b) Move\n(c) Copy with segregation (Yet to be implemented)\n(d) Move with segregation (Yet to be implemented)\n(e) Delete\n(f) Rename\n(g) Resize Image\n\n>>>')
 
     if Query == 'a':
         copy()
@@ -22,6 +23,8 @@ def asking_query():
         delete()
     elif Query == 'f':
         rename()
+    elif Query == 'g':
+        resize_images()
     else:
         print('sorry, I can not understand')
         asking_query()
