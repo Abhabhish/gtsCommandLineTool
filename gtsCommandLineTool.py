@@ -5,13 +5,14 @@ from tools.renameFiles import rename
 from tools.resizeImages import resize_images
 from tools.removeNoise import remove_noise
 from tools.downloadFiles import download_files
+from tools.pngTojpg import png_to_jpg
 
 
 def asking_query():
     
     global Operation
 
-    Query = input('What do you want to do? \n(a) Copy\n(b) Move\n(c) Copy with segregation (Yet to be implemented)\n(d) Move with segregation (Yet to be implemented)\n(e) Delete\n(f) Rename\n(g) Resize Image\n(h) Remove Noise\n(i) Download Files\n\n>>>')
+    Query = input('What do you want to do? \n(a) Copy\n(b) Move\n(c) Copy with segregation (Yet to be implemented)\n(d) Move with segregation (Yet to be implemented)\n(e) Delete\n(f) Rename\n(g) Resize Image\n(h) Remove Noise\n(i) Download Files\n(j) PNG to JPG\n\n>>>')
 
     match Query:
         case 'a': copy()
@@ -22,6 +23,7 @@ def asking_query():
         case 'g': resize_images()
         case 'h': remove_noise()
         case 'i': download_files()
+        case 'j': png_to_jpg()
         case _:
             print('sorry, I can not understand')
             asking_query()
