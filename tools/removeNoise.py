@@ -11,7 +11,7 @@ def process_audio(audio_files_to_be_cleaned):
 
     source_directory = input("Enter the source directory containing audio files:\n>> ")
 
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=20) as executor:
         futures = []
 
         for root, dirs, files in os.walk(source_directory):
