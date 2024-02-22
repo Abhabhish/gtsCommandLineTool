@@ -21,11 +21,16 @@ def png_to_jpg():
     elif input_option == 'b':
         print("Paste file names:")
 
-        user_input = input(">> ")
-        file_names = [line.strip() for line in user_input.split('\n') if line.strip()]
+        while True:
+            user_input = input(">> ").strip()
 
-        for file_name in file_names:
-            convert_png_to_jpg(os.path.join(source, file_name), destination)
+            if not user_input:
+                break
+
+            files_to_be_converted.append(os.path.join(source, user_input))
+
+            for file_name in files_to_be_converted:
+                convert_heic_to_jpg(os.path.join(source, file_name), destination)
 
     elif input_option == 'c':
         csv_file_path = input("Enter the path to the CSV file containing the file names:\n>>")
@@ -49,7 +54,7 @@ def convert_png_to_jpg(source, destination):
             rgb_img = img.convert("RGB")
             jpg_path = os.path.join(destination, os.path.splitext(os.path.basename(source))[0] + ".jpg")
             rgb_img.save(jpg_path)
-            print(f"Converted: {source} -> {jpg_path}")
+            print(f"Converted: {source} ----> {jpg_path}")
 
     except Exception as e:
         print(f"Error processing {source}: {e}")
