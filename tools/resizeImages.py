@@ -1,12 +1,15 @@
-from PIL import Image 
+from PIL import Image # pip install pillow
 import os
 import csv
 
 def resize_images():
+
+    # Create a dictionary to store the images to be resized
     images_to_be_resized = {}
 
     input_option = input("How would you like to input image names?\n(a) Manually enter the names\n(b) Paste multiple image names\n(c) Import from a CSV file\n\n>>>")
 
+    # If manual input option is chosen
     if input_option == 'a':
         print("Enter the image names: ")
 
@@ -16,9 +19,10 @@ def resize_images():
                 break
             else:
                 new_size = input(f"Enter the new size: (width height)\n>>")
-                width, height = map(int, new_size.split())
-                images_to_be_resized[current_name] = (width, height)
+                width, height = map(int, new_size.split()) # Map to store the new height and width
+                images_to_be_resized[current_name] = (width, height) 
 
+    # If paste multiple items option is chosen
     elif input_option == 'b':
         print("Paste the image names and sizes: (format -> file_name new_width new_height) ")
 
@@ -29,9 +33,10 @@ def resize_images():
             else:
                 parts = line.split()
                 current_name = parts[0]
-                size = tuple(map(int, parts[1:]))
+                size = tuple(map(int, parts[1:])) # Create a tuple
                 images_to_be_resized[current_name] = size
     
+    # If import from CSV file is chosen
     elif input_option == 'c':
         csv_file_path = input("Enter path to CSV file containing new image sizes:\n>>")
 
@@ -48,8 +53,10 @@ def resize_images():
         print("Invalid option. Enter 'a', 'b', or 'c'.")
         return
 
+    # Enter the source path
     source = input("Enter Source:\n>>")
     
+    # Iterate through the source folders
     for root, dirs, files in os.walk(source):
         for file in files:
             if file in images_to_be_resized:
@@ -59,10 +66,10 @@ def resize_images():
                 try: 
                     image = Image.open(old_file_path)
 
-                    resized_image = image.resize(new_size)
+                    resized_image = image.resize(new_size) # Setup the new size
 
-                    resized_file_path = os.path.join(root, f"resized_{file}")
-                    resized_image.save(resized_file_path)
+                    resized_file_path = os.path.join(root, f"resized_{file}") 
+                    resized_image.save(resized_file_path) # Save the resized image
 
                     print(f"Resized: {old_file_path} ----> {resized_file_path}")
                 

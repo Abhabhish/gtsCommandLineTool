@@ -3,10 +3,12 @@ import shutil
 import csv
 
 def copy():
+    # Create a list for files
     files_to_be_copied = []
 
     input_option = input("How would you like to input the file names?\n(a) Manually enter the file names\n(b) Import from CSV file\n\n>>>")
 
+    # If manual option is chosen
     if (input_option == 'a'):
         print("Enter the file names to be copied: ")
         
@@ -17,6 +19,7 @@ def copy():
             else:
                 files_to_be_copied.append(i.strip())
 
+    # If CSV file import option is chosen
     elif (input_option == 'b'):
         csv_file_path = input("Enter the path to the CSV file: ")
         try:
@@ -31,9 +34,13 @@ def copy():
         print("Invalid option. Enter 'a' or 'b'.")
         return
 
+    # Enter the file source
     source = input("Enter file Source:\n>>>")
+
+    # Enter the destination folder
     destination = input("Enter file Destination:\n>>>")
 
+    # Iterate through the source folders
     for root, dirs, files in os.walk(source):
         for file in files:
             if file in files_to_be_copied:
@@ -41,5 +48,7 @@ def copy():
                 new_file_path = os.path.join(destination, file)
 
                 if not os.path.exists(new_file_path):
+
+                    # Copy using shutil function
                     shutil.copy(old_file_path, new_file_path)
                     print(f"Copied: {old_file_path} ----> {new_file_path}")

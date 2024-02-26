@@ -1,13 +1,18 @@
-from PIL import Image
+from PIL import Image # pip install pillow
 import os
+
 
 def png_to_jpg():
 
     input_option = input("How would you like to input the file names?\n(a) Manually enter file names\n(b) Paste file names\n(c) Import from CSV file\n\n>>>")
 
+    # Enter the file source
     source = input("Enter source:\n>> ")
+
+    # Enter the destination path
     destination = input("Enter destination:\n>> ")
 
+    # If manual input option is chosen
     if input_option == 'a':
         print("Enter the file names: ")
 
@@ -18,6 +23,7 @@ def png_to_jpg():
             else:
                 convert_png_to_jpg(os.path.join(source, current_name), destination)
 
+    # If paste multiple file names option is chosen
     elif input_option == 'b':
         print("Paste file names:")
 
@@ -32,6 +38,7 @@ def png_to_jpg():
             for file_name in files_to_be_converted:
                 convert_heic_to_jpg(os.path.join(source, file_name), destination)
 
+    # If import from CSV option is chosen
     elif input_option == 'c':
         csv_file_path = input("Enter the path to the CSV file containing the file names:\n>>")
         try:
@@ -50,10 +57,11 @@ def png_to_jpg():
 
 def convert_png_to_jpg(source, destination):
     try:
+        # Access the image
         with Image.open(source) as img:
-            rgb_img = img.convert("RGB")
-            jpg_path = os.path.join(destination, os.path.splitext(os.path.basename(source))[0] + ".jpg")
-            rgb_img.save(jpg_path)
+            rgb_img = img.convert("RGB") # Convert to RBG first 
+            jpg_path = os.path.join(destination, os.path.splitext(os.path.basename(source))[0] + ".jpg") # Setup the jpg path
+            rgb_img.save(jpg_path) # Save image as jpg
             print(f"Converted: {source} ----> {jpg_path}")
 
     except Exception as e:
