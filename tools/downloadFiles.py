@@ -1,34 +1,39 @@
 import os
-import requests # pip install requests
-from concurrent.futures import ThreadPoolExecutor # pip install futures
+import requests
+from concurrent.futures import ThreadPoolExecutor
 import csv
-
+import imghdr
 
 def download_file(link, destination_directory):
     try:
-        # Setup response
         response = requests.get(link)
         if response.status_code == 200:
+            # Determine the image file type
+            file_type = imghdr.what(None, h=response.content)
+            if file_type is None:
+                print(f"Cannot determine file type for: {link}")
+                return
+
+            # Set the correct extension based on the file type
+            extension = f".{file_type}"
+            
             file_name = os.path.basename(link)
-            file_path = os.path.join(destination_directory, file_name)
+            file_path = os.path.join(destination_directory, file_name + extension)
 
             with open(file_path, 'wb') as file:
                 file.write(response.content)
             print(f"Downloaded: {link} ----> {file_path}")
         else:
             print(f"Failed to download: {link}")
-    
+
     except Exception as e:
         print(f"Error downloading {link}: {e}")
 
 def download_files():
-
-    # Setup a list to append the links
     links_to_download = []
 
     input_option = input("How would you like to input links?\n(a) One by one\n(b) Multiple\n(c) Import from a CSV file\n\n>>>")
 
-    # If manual input option is chosen
     if input_option == 'a':
         print("Enter the links: ")
         while True:
@@ -38,13 +43,11 @@ def download_files():
             else:
                 links_to_download.append(current_link.strip())
     
-    # If paste multiple links option is chosen
     elif input_option == 'b':
         print("Paste the links: ")
         user_input = input(">> ")
         links_to_download = [link.strip() for line in user_input.split('\n') if line.strip()]
 
-    # If import links from a CSV file option is chosen
     elif input_option == 'c':
         csv_file_path = input("Enter path to the CSV file:\n>>")
 
@@ -61,10 +64,8 @@ def download_files():
         print("Invalid option. Enter 'a', 'b', or 'c'.")
         return
 
-    # Setup the destination folder
     destination_directory = input("Enter Destination folder:\n>>")
 
-    # Setup futures with max_workers=20
     with ThreadPoolExecutor(max_workers=20) as executor:
         futures = []
         for link in links_to_download:
@@ -72,3 +73,4 @@ def download_files():
 
         for future in futures:
             future.result()
+

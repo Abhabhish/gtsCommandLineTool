@@ -12,7 +12,7 @@ def move():
 
     # If manual option is chosen
     if (input_option == 'a'):
-        print("Enter the file names to be copied: ")
+        print("Enter the file names to be moved: ")
 
         while True:
             i = input(">> ")
