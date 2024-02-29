@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor # pip install futures
 def process_audio(audio_files_to_be_cleaned):
 
     # Specify the API key
-    api_key = '6166bb920cc5f67c9b5295344d071eec'
+    api_key = input("Enter your api-key to use the API:\n>>")
 
     # Setup the noise removal client
     noise_removal = NoiseRemovalClient(api_key=api_key)
