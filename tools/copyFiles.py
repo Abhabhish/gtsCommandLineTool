@@ -21,7 +21,7 @@ def copy():
 
     # If CSV file import option is chosen
     elif (input_option == 'b'):
-        csv_file_path = input("Enter the path to the CSV file: ")
+        csv_file_path = input("Enter the path to the CSV file:\n(Sample format: 1st col -> file_name)\n>>")
         try:
             with open(csv_file_path, newline='', encoding='utf-8') as csv_file:
                 reader = csv.reader(csv_file)

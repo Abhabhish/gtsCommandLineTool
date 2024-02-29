@@ -65,7 +65,7 @@ def remove_noise():
         
     # Import the file names from a CSV file
     elif input_option == 'c':
-        csv_file_path = input("Enter the path to the CSV file containing the audio file names:\n>>")
+        csv_file_path = input("Enter the path to the CSV file containing the audio file names:\n(Sample format: 1st col -> file_name)\n>>")
         try:
             with open(csv_file_path, newline='', encoding='utf-8') as csv_file:
                 reader = csv.reader(csv_file)

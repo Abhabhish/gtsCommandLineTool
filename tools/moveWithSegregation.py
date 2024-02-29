@@ -5,7 +5,7 @@ import shutil
 def move_with_segregation():
 
     # Input the CSV file path
-    csv_path = input("Enter the path of the CSV file:\n>>")
+    csv_path = input("Enter the path of the CSV file:\n(Sample format: 1st col -> file_name, other cols -> other parameters)\n>>")
 
     # Enter the source of the files
     source = input("Enter the source:\n>>")

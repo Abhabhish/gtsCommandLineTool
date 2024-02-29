@@ -45,7 +45,7 @@ def rename():
     # If CSV import option is chosen
     elif input_option == 'c':
 
-        csv_file_path = input("Enter the path to the CSV file containing the new file names:\n>>")
+        csv_file_path = input("Enter the path to the CSV file containing the new file names:\n(Sample format: 1st col -> old_file_name, 2nd col -> new_file_name)\n>>")
 
         try:
             with open(csv_file_path, newline='', encoding='utf-8') as csv_file:

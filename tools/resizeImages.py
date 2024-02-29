@@ -1,12 +1,15 @@
-from PIL import Image
+from PIL import Image # pip install pillow
 import os
 import csv
 
 def resize_images():
+
+    # Create a dictionary to store file names
     images_to_be_resized = {}
 
     input_option = input("How would you like to input image file names?\n(a) Manually enter the file names\n(b) Paste multiple image file names\n(c) Import from a CSV file\n\n>>>")
 
+    # If manual input option is chosen
     if input_option == 'a':
         print("Enter the image file names: ")
         
@@ -19,6 +22,8 @@ def resize_images():
                 width = int(input("Enter the new width:\n>>"))
                 images_to_be_resized[current_name] = (width, 0)
 
+
+    # If paste multiple file names option is chosen
     elif input_option == 'b':
         print("Paste the image file names: (format -> file_name new_width)")
 
@@ -33,8 +38,9 @@ def resize_images():
                 width = int(parts[1])
                 images_to_be_resized[current_name] = (width, 0)
 
+    # If import from CSV file option is chosen
     elif input_option == 'c':
-        csv_file_path = input("Enter the path to the CSV file:\n>>")
+        csv_file_path = input("Enter the path to the CSV file:\n(Sample format: 1st col -> file_name, 2nd col -> new width)>>")
 
         try:
             with open(csv_file_path, newline='', encoding='utf-8') as csv_file:
@@ -46,15 +52,17 @@ def resize_images():
                     images_to_be_resized[current_name] = (width, 0)
 
         except FileNotFoundError:
-            print(f"Error: CSV file not found at {csv_file_path}")
+            print(f"Error: CSV file not found at {csv_file_path}") # If CSV file is not found
             return
     
     else:
         print("Invalid option. Enter 'a', 'b' or 'c'.")
         return
 
+    # Enter the source
     source = input("Enter the source:\n>>")
 
+    # Iterate through the source folders
     for root, dirs, files in os.walk(source):
         for file in files:
             if file in images_to_be_resized:
