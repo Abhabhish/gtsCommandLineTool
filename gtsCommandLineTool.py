@@ -1,30 +1,41 @@
-from tools.copyFiles import copy
-from tools.moveFiles import move
-from tools.deleteFiles import delete
-from tools.renameFiles import rename
+from tools.copyFiles import copy # Copy functionality
+from tools.moveFiles import move # Move functionality
+from tools.copyWithSegregation import copy_with_segregation # Copy with segregation functionality
+from tools.moveWithSegregation import move_with_segregation # Move with segregation functionality
+from tools.deleteFiles import delete # Delete functionality
+from tools.renameFiles import rename # Rename functionality
+from tools.resizeImages import resize_images # Resize functionality
+from tools.removeNoise import remove_noise # Noise removal functionality
+from tools.downloadFiles import download_files # Download functionality
+from tools.pngTojpg import png_to_jpg # PNG to JPG functionality
+from tools.heicTojpg import heic_to_jpg # HEIC to JPG functionality
+from tools.combineCsv import combine_csv_files # Combine CSV functionality
 
-
-def asking_query():
+# Function to give options to the user for functionality
+def asking_query(): 
     
     global Operation
 
-    Query = input('What do you want to do? \n(a) Copy\n(b) Move\n(c) Copy with segregation (Yet to be implemented)\n(d) Move with segregation (Yet to be implemented)\n(e) Delete\n(f) Rename\n\n>>>')
+    # Option input
+    Query = input('What do you want to do? \n(a) Copy\n(b) Move\n(c) Copy with segregation\n(d) Move with segregation\n(e) Delete\n(f) Rename\n(g) Resize Image\n(h) Remove Noise\n(i) Download Files\n(j) PNG to JPG\n(k) HEIC to JPG\n(l) Combine CSV files\n\n>>>')
 
-    if Query == 'a':
-        copy()
-    elif Query == 'b':
-        move()
-    elif Query == 'c':
-        return 0
-    elif Query == 'd':
-        return 0
-    elif Query == 'e':
-        delete()
-    elif Query == 'f':
-        rename()
-    else:
-        print('sorry, I can not understand')
-        asking_query()
-
+    # Match statement for options
+    match Query:
+        case 'a': copy()
+        case 'b': move()
+        case 'c': copy_with_segregation()
+        case 'd': move_with_segregation()
+        case 'e': delete()
+        case 'f': rename()
+        case 'g': resize_images()
+        case 'h': remove_noise()
+        case 'i': download_files()
+        case 'j': png_to_jpg()
+        case 'k': heic_to_jpg()
+        case 'l': combine_csv_files()
+        case _:
+            # Ask again if none of the options above are chosen
+            print('Please choose one of the options given above only.')
+            asking_query()
 
 asking_query()
